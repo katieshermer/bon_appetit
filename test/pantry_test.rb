@@ -148,38 +148,31 @@ class PantryTest < Minitest::Test
 
     r2 = Recipe.new("Spaghetti")
     r2.add_ingredient("Spaghetti Noodles", 10)
-    r2.add_ingredient("Sauce", 10)
     r2.add_ingredient("Cheese", 5)
+    r2.add_ingredient("Sauce", 10)
 
     pantry.add_to_shopping_list(r2)
 
     assert_equal pantry.print_shopping_list, "* Flour: 500\n* Cheese: 25\n* Cayenne: 0.025\n* Spaghetti Noodles: 10\n* Sauce: 10"
   end
 
-  def test_shopping_list_takes_pantry_stock_into_account
+  def test_print_shopping_list_with_different_input_order
     pantry = Pantry.new
-    pantry.restock("Cheese", 20)
-    pantry.restock("Cheese", 10)
-    pantry.restock("Spaghetti Noodles", 10)
 
     r = Recipe.new("Spicy Cheese Pizza")
-    r.add_ingredient("Flour", 500)
-    r.add_ingredient("Cheese", 20)
     r.add_ingredient("Cayenne", 0.025)
-
+    r.add_ingredient("Cheese", 20)
+    r.add_ingredient("Flour", 500)
     pantry.add_to_shopping_list(r)
 
     r2 = Recipe.new("Spaghetti")
-    r2.add_ingredient("Spaghetti Noodles", 10)
     r2.add_ingredient("Sauce", 10)
     r2.add_ingredient("Cheese", 5)
+    r2.add_ingredient("Spaghetti Noodles", 10)
 
     pantry.add_to_shopping_list(r2)
 
-    assert_equal pantry.shopping_list.count, 5
-
-    assert_equal pantry.shopping_list["Cheese"], 4
-
+    assert_equal pantry.print_shopping_list, "* Cayenne: 0.025\n* Cheese: 25\n* Flour: 500\n* Sauce: 10\n* Spaghetti Noodles: 10"
   end
 
 

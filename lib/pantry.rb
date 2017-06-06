@@ -28,30 +28,13 @@ class Pantry
     amount = (amount / 100).round if amount > 100
     amount if (1..100).include? amount
   end
-  #
-  # def add_to_shopping_list(recipe)
-  #   recipe.ingredients.each do |ingredient, amount|
-  #     @shopping_list[ingredient] += amount if @shopping_list[ingredient].nil? == false
-  #     @shopping_list[ingredient] = amount if @shopping_list[ingredient].nil?
-  #   end
-  # end
 
   def add_to_shopping_list(recipe)
     recipe.ingredients.each do |ingredient, amount|
-      check_existing_stock(recipe)
       @shopping_list[ingredient] += amount if @shopping_list[ingredient].nil? == false
       @shopping_list[ingredient] = amount if @shopping_list[ingredient].nil?
     end
   end
-
-  def check_existing_stock(recipe)
-    if @stock[ingredient] != nil && @stock[ingredient] != recipe[ingredient]
-      amount = amount - @stock[ingredient]
-    else
-      amount
-    end
-  end
-
 
   def print_shopping_list
     output_string = ""
