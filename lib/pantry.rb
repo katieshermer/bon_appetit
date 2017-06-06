@@ -19,11 +19,11 @@ class Pantry
 
   def convert_units(recipe)
     recipe.ingredients.each do |ingredient, amount|
-      recipe.ingredients[ingredient] = unit_conversion(amount)
+      recipe.ingredients[ingredient] = unit_conversions(amount)
     end
   end
 
-  def unit_conversion(amount)
+  def unit_conversions(amount)
     amount = (amount * 1000).round if amount < 1
     amount = (amount / 100).round if amount > 100
     amount if (1..100).include? amount
